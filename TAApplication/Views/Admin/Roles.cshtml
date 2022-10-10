@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Data
+@inject UserManager<TAUser> um
+@inject RoleManager<IdentityRole> rm
+
+<link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+
+<h1 class="title">Roles Table</h1>
+<article>
+    <table id="roles_table">
+        <tr>
+            <th>User</th>
+            <th>Unid</th>
+            <th>Administrator</th>
+            <th>Professor</th>
+            <th>Applicant</th>
+        </tr>
+        @{
+            var users = um.Users.OrderBy(u => u.Name).ToArray();
+            foreach (var user in users)
+            {
+                var roles = await um.GetRolesAsync(user);
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Unid</td>
+                    <td class="slide-cell">
+                        <label class="switch">
+                            @if (roles.Contains("Administrator"))
+                            {
+                                <input type="checkbox" onclick="changerole('@user.Id', 'Administrator')" checked>
+                            }
+                            else
+                            {
+                                <input type="checkbox" onclick="changerole('@user.Id', 'Administrator')">
+                            }
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                    <td class="slide-cell">
+                        <label class="switch">
+                            @if (roles.Contains("Professor"))
+                            {
+                                <input type="checkbox" onclick="changerole('@user.Id', 'Professor')" checked>
+                            }
+                            else
+                            {
+                                <input type="checkbox" onclick="changerole('@user.Id', 'Professor')">
+                            }
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                    <td class="slide-cell">
+                        <label class="switch">
+                            @if (roles.Contains("Applicant"))
+                            {
+                                <input type="checkbox" onclick="changerole('@user.Id', 'Applicant')" checked>
+                            }
+                            else
+                            {
+                                <input type="checkbox" onclick="changerole('@user.Id', 'Applicant')">
+                            }
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</article>
+
+<script src="/js/Admin/Roles.js"></script>
+@*<script>
+    $(document).ready(function () {
+        $('#roles_table').DataTable(
+            @foreach(var user in users) {
+               "rows": {
+                "Name": user.Name, // for show progress bar
+                "Unid": user.Unid, // for process server side
+               }
+            }
+        );
+    });
+</script>*@

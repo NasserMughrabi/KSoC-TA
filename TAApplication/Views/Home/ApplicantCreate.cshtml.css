@@ -1,0 +1,74 @@
+﻿/*
+  Author:    Nasser Mughrabi
+  Partner:   None
+  Date:      09/08/2022
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Nasser Mughrabi - This work may not be copied for use in Academic Coursework.
+  I, Nasser Mughrabi, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source. Any references used in the completion of the assignment are cited in my README file.
+  File Contents:
+    This is a CSS(stylesheet) file to design the look of the ApplicationCreate html file
+*/
+
+.grid-container {
+    padding-right: 5rem;
+    padding-left: 0.5rem;
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+}
+
+.input-group-text {
+    width: 20rem;
+}
+
+.grid-container .left-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+}
+
+.btn {
+    width: 10rem;
+}
+
+.input-group .radio-form {
+    margin-left: 1rem !important;
+    padding-top: 0.5rem;
+}
+
+.choose-file {
+    padding-left: 1rem;
+    padding-top: 0.3rem;
+}
+
+.input-group-text .fa-solid {
+    font-size: 1.2rem;
+    color: #495957;
+    padding-left: 17.5rem;
+    position: absolute;
+    display: inline-block;
+}
+
+.fa-solid .tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+#tooltip:hover .tooltiptext {
+    visibility: visible;
+    width: 15rem;
+    left: 15.5rem;
+    bottom: 1.4rem;
+    white-space: normal;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: normal;
+    font-size: 1rem;
+}

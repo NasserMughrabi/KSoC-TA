@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Data
+@inject UserManager<TAUser> um
+@inject RoleManager<IdentityRole> rm
+
+<main class="main">
+    <table id="table_id" class="display">
+        <thead>
+            <tr>
+                <th>Email</th>
+            </tr>
+        </thead>
+    </table>
+</main>
+
+
+@section Styles 
+{
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+}
+@section Scripts 
+{
+    <script>
+        //$(document).ready( function () {
+
+        //    $('#table_id').DataTable(
+        //        {
+        //            "processing": true, // for show progress bar
+        //            "serverSide": true, // for process server side
+        //            ajax: {
+        //                url: "/Admin/GetUsers",
+        //                type: "POST",
+        //                datatype: "json",
+        //            },
+        //            columns: [
+        //                { data: "Email" },
+        //            ],
+        //        }
+        //    );
+        //} );
+
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '/Admin/GetUsers',
+                    type: 'POST',
+                },
+                columns: [
+                    { data: 'Email' },
+                ],
+            });
+        });
+    </script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+}
+

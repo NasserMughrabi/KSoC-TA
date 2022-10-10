@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Diagnostics;
 using TAApplication.Models;
 
@@ -18,6 +20,25 @@ namespace TAApplication.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Applicant")]
+        public IActionResult ApplicantCreate()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Administrator, Professor, Applicant", Policy = "oneStudent")]
+        public IActionResult ApplicantDetails()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Administrator, Professor")]
+        public IActionResult ApplicantList()
+        {
+            return View();
+        }
+
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

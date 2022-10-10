@@ -13,14 +13,19 @@
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Input.Email"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
                 <input asp-for="Input.Unid" class="form-control" autocomplete="unid" aria-required="true" />
                 <label asp-for="Input.Unid"></label>
                 <span asp-validation-for="Input.Unid" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Name" class="form-control" autocomplete="fullname" aria-required="true" />
+                <label asp-for="Input.Name"></label>
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.RefferedTo" class="form-control" autocomplete="refer" aria-required="true" />
+                <label asp-for="Input.RefferedTo"></label>
+                <span asp-validation-for="Input.RefferedTo" class="text-danger"></span>
             </div>
             <div class="form-floating">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />

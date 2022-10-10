@@ -1,0 +1,84 @@
+﻿/*
+  Author:    Nasser Mughrabi
+  Partner:   None
+  Date:      09/08/2022
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Nasser Mughrabi - This work may not be copied for use in Academic Coursework.
+  I, Nasser Mughrabi, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source. Any references used in the completion of the assignment are cited in my README file.
+  File Contents:
+    This is a CSS(stylesheet) file to design the look of both html files
+*/
+
+.banner {
+    background-image: url("images/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 36vh;
+    text-align: center;
+}
+
+.banner-text {
+    padding-top: 5vh;
+}
+
+#title {
+    color: white;
+    cursor: default;
+}
+
+#pargraph {
+    font-size: 1.5rem;
+    color: white;
+    cursor: default;
+}
+
+.grid-container {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 4fr);
+    grid-gap: 1rem;
+    grid-auto-rows: minmax(10rem, auto);
+}
+
+    .grid-container article {
+        background: #ddd;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+        .grid-container article span {
+            background-color: red;
+            justify-self: center;
+        }
+
+.grid-image {
+    width: 100%;
+    height: 25rem;
+}
+
+    .grid-image img {
+        width: 100%;
+        height: 100%;
+    }
+
+.make-diff-parg {
+    text-align: center;
+    padding: 1rem;
+    padding-bottom: 3.5rem;
+}
+
+.year-ta-parg {
+    text-align: center;
+    padding: 1rem;
+    padding-bottom: 6.5rem;
+}
+
+/* gird container diplay change on smaller screens (responsive desige) */
+@media (max-width: 920px) {
+    .grid-container {
+        display: block;
+    }
+}

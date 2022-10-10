@@ -1,0 +1,95 @@
+﻿/*
+  Author:    Nasser Mughrabi
+  Partner:   Jake Darham
+  Date:      09/08/2022
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Nasser Mughrabi - This work may not be copied for use in Academic Coursework.
+  I, Nasser Mughrabi, and my partner Jake Darham certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source. Any references used in the completion of the assignment are cited in my README file.
+  File Contents:
+    This is a CSS(stylesheet) file to design the look of the ApplicationCreate html file
+*/
+
+td, th {
+    border: solid 1px black;
+}
+
+.title {
+    text-align: center;
+}
+
+table {
+    text-align: center;
+}
+
+article {
+    display: grid;
+    padding: 0% 4rem;
+}
+
+
+
+/* slide toggle */
+.slide-cell {
+    padding: 0.2rem 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 27px;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
