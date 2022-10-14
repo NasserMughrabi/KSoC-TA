@@ -1,4 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿/**
+  Author:    Nasser Mughrabi
+  Partner:   None   
+  Date:      13-October-2022
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Nasser Mughrabi - This work may not be copied for use in Academic Coursework.
+  I, Nasser Mughrabi, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source. Any references used in the completion of the assignment are cited in my README file.
+  
+File Contents:
+    This class is to build and structure the database
+ */
+
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TAApplication.Areas.Data;
@@ -15,6 +28,10 @@ namespace TAApplication.Data
             _httpContextAccessor = http;
         }
 
+        /// <summary>
+        /// initialize/seed the users table
+        /// </summary>
+        /// <returns></returns>
         public async Task InitializeUsers(UserManager<TAUser> um, RoleManager<IdentityRole> rm, IUserStore<TAUser> us)
         {
             // Add roles if they done exist
@@ -60,6 +77,10 @@ namespace TAApplication.Data
             }
         }
 
+        /// <summary>
+        /// initialize/seed the applications table
+        /// </summary>
+        /// <returns></returns>
         public async Task InitializeApplications(UserManager<TAUser> um)
         {
             // Look for any applications.
