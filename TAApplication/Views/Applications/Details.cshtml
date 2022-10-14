@@ -1,0 +1,80 @@
+﻿@model TAApplication.Models.Application
+@{
+    ViewData["Title"] = "Details";
+}
+
+<main class="page-body">
+    <h1>Application Details</h1>
+    <h3>Applicant: @Model.User.Name</h3>
+    <h3>UID: @Model.User.Unid</h3>
+    <h2 class="application-title">Application Information</h2>
+    <section class="application-info">
+        <table>
+            <thead>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.Pursuing)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.Pursuing)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.Department)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.Department)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.GPA)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.GPA)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.Hours)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.Hours)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.WeekBefore)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.WeekBefore)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.CompletedSemesters)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.CompletedSemesters)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.Statement)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.Statement)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.TransferSchool)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.TransferSchool)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.Linkedin)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.Linkedin)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">@Html.DisplayNameFor(model => model.ResumeFile)</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.ResumeFile)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">Last Modified</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.ModificationDate)</td>
+                </tr>
+                <tr>
+                    <td class="left-col">Modified By</td>
+                    <td class="right-col">@Html.DisplayFor(model => model.ModifiedBy)</td>
+                </tr>
+            </thead>
+        </table>
+    </section>
+</main>
+
+@if (User.IsInRole("Administrator") || User.IsInRole("Applicant"))
+{
+    <div class="bottom-navs">
+        <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
+        <a asp-action="List">Back to List</a>
+    </div>
+}
+else
+{
+    <div class="bottom-navs">
+        <a asp-action="List">Back to List</a>
+    </div>
+}
+
