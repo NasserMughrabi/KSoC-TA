@@ -1,0 +1,21 @@
+﻿@model IEnumerable<TAApplication.Models.Application>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@{
+    int count = 0;
+    float totalGPA = 0;
+    @foreach (var item in Model)
+    {
+        count++;
+        totalGPA = totalGPA + @item.GPA;
+    }
+    float averageGPA = totalGPA / count;
+}
+
+<main>
+    Total Applications: @count
+    Average GPA: @averageGPA
+    <a href="/Applications/List">All Applications</a>
+</main>

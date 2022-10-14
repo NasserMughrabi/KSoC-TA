@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TAApplication.Areas.Data;
 using TAApplication.Data;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -44,12 +45,18 @@ else
 
 using (var scope = app.Services.CreateScope())
 {
+    var services = scope.ServiceProvider;
+    var context =
+       services.GetRequiredService<ApplicationDbContext>();
+    context.Database.EnsureCreated();
+
     var DB = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     var um = scope.ServiceProvider.GetRequiredService<UserManager<TAUser>>();
     var rm = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var us = scope.ServiceProvider.GetRequiredService<IUserStore<TAUser>>();
 
     await DB.InitializeUsers(um, rm, us);
+    await DB.InitializeApplications(um);
 }
 
 app.UseHttpsRedirection();

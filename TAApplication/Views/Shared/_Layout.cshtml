@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using TAApplication.Data
+@using Microsoft.EntityFrameworkCore;
+@inject ApplicationDbContext _context;
+@{
+    ViewBag.Context = _context;
+}
+@{
+    ViewData["Title"] = "Home Page";
+    var data = ViewBag.Context as ApplicationDbContext;
+}
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -21,44 +34,79 @@
                     <li class="nav-item active">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    @if (User.IsInRole("Applicant"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ApplicantCreate">Create Application</a>
-                        </li>
-                    }
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ApplicantDetails">View Application</a>
-                    </li>
                     @if (User.IsInRole("Administrator"))
                     {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Applications" asp-action="Index">Applications</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Roles">Role Selector</a>
                         </li>
                     }
+                    @if (User.IsInRole("Professor"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Applications" asp-action="List">Applications</a>
+                        </li>
+                    }
+                    @if (User.IsInRole("Applicant"))
+                    {
+                        bool result = false;
+                        @foreach (var item in @data.Application.Include(o => o.User).ToList())
+                        {
+                            @if (User.Identity.Name == item.User.Unid) {
+                                result = true;
+                                <a class="nav-link" asp-area="" asp-controller="Applications" asp-action="Details" asp-route-id="@item.ID">Application Details</a>
+                            } 
+                        }
+                        @if (!result) {
+                           <a class="nav-link" asp-area="" asp-controller="Applications" asp-action="Create">Create Application</a>
+                        }
+                    }
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Applications
+                            TA
                         </a>
                         <ul class="dropdown-menu">
-                            @if (User.IsInRole("Applicant"))
+                            <li>
+                               <span>Abedalnaser Elmughrabi</span>
+                            </li>
+                            <li>
+                                <hr>PS5
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Index">Dashboard</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="List">List</a>
+                            </li>
+                            @foreach (var item in @data.Application.Include(o => o.User).ToList())
                             {
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicantCreate">Application Form</a>
-                                </li>
+                                @if (item.User.Unid == "u0000000")
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                                    </li>
+                                }
                             }
                             <li>
-                                <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicantDetails">Application Details</a>
+                                <hr>Admin
                             </li>
-                            @if (User.IsInRole("Administrator"))
-                            {
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicantList">Student Applications</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Roles">Role Selector</a>
-                                </li>
-                            }
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Roles">Role Selector</a>
+                            </li>
+                            <li>
+                                <hr>OLD
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicantList">List</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicantCreate">Create</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicantDetails">Details</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

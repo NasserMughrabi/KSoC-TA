@@ -1,0 +1,110 @@
+﻿@model IEnumerable<TAApplication.Models.Application>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pursuing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GPA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hours)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.weekBefore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.completedSemesters)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.statement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.transferSchool)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Linkedin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResumeFile)
+            </th>*@
+            <th>
+                Last Modified
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a class="nav-link" asp-area="" asp-controller="Applications"
+                asp-action="Details" asp-route-id="@item.ID">@item.User.Name</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pursuing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GPA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hours)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.weekBefore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.completedSemesters)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.statement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.transferSchool)
+            </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Linkedin)
+            </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.ResumeFile)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ModificationDate)
+            </td>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Applicant"))
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            } else {
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                </td>
+            }
+            
+        </tr>
+}
+    </tbody>
+</table>
