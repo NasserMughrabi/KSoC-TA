@@ -55,3 +55,7 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.container {
+    text-align: center;
+}
