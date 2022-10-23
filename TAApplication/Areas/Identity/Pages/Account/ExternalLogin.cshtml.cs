@@ -161,9 +161,8 @@ namespace TAApplication.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                //TAUser taUser = new TAUser(TAUser);
-
                 var user = CreateUser();
+                // get user Unid at registration and name from google claim
                 user.Unid = Input.Unid;
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Name))
                 {
