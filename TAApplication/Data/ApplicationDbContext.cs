@@ -114,6 +114,41 @@ namespace TAApplication.Data
         }
 
         /// <summary>
+        /// initialize/seed the applications table
+        /// </summary>
+        /// <returns></returns>
+        public async Task InitializeCourses(UserManager<TAUser> um)
+        {
+            // Look for any applications.
+            if (this.Course.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var courses = new Course[]
+            {
+            new Course{Semester="Spring", Year=2023, Title="Introduction to CS", Department="CS", Number=1400,
+                Section=001, Description="Intro", ProfessorUnid="u1234566", ProfessorName="Jim St",
+                TimeAndDaysOffered="M/W 2:30-3:50", Location="Web 104", Credit=4, Enrollment=95, Note="Need extra TAs"},
+            new Course{Semester="Spring", Year=2023, Title="Software Practice 1", Department="CS", Number=3500,
+                Section=001, Description="Software", ProfessorUnid="u1234567", ProfessorName="David johnson",
+                TimeAndDaysOffered="M/W 4:35-5:55", Location="Web 105", Credit=4, Enrollment=150, Note=""},
+            new Course{Semester="Spring", Year=2023, Title="Software Practice 2", Department="CS", Number=3505,
+                Section=001, Description="Software", ProfessorUnid="u1234568", ProfessorName="Erin Parker",
+                TimeAndDaysOffered="T/W 10:30-11:50", Location="Web 104", Credit=4, Enrollment=106, Note=""},
+            new Course{Semester="Spring", Year=2023, Title="Computer Systems", Department="CS", Number=4400,
+                Section=003, Description="Low level software practices", ProfessorUnid="u1234569", ProfessorName="Danny Kopta",
+                TimeAndDaysOffered="T/F 11:30-12:50", Location="Web 101", Credit=4, Enrollment=105, Note="1 more TA needed"},
+            };
+
+            foreach (Course c in courses)
+            {
+                this.Course.Add(c);
+            }
+            this.SaveChanges();
+        }
+
+        /// <summary>
         /// Every time Save Changes is called, add timestamps
         /// </summary>
         /// <returns></returns>
@@ -174,5 +209,6 @@ namespace TAApplication.Data
         /// 
         /// </summary>
         public DbSet<Application> Application { get; set; }
+        public DbSet<Course> Course { get; set; }
     }
 }

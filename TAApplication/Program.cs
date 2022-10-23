@@ -42,6 +42,17 @@ builder.Services.AddAuthorization(options =>
     );
 });
 
+
+builder.Services.AddAuthentication()
+.AddGoogle(options =>
+{
+    IConfigurationSection googleAuthNSection =
+    builder.Configuration.GetSection("Authentication:Google");
+
+    options.ClientId = googleAuthNSection["ClientId"];
+    options.ClientSecret = googleAuthNSection["ClientSecret"];
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -71,6 +82,8 @@ using (var scope = app.Services.CreateScope())
 
     await DB.InitializeUsers(um, rm, us);
     await DB.InitializeApplications(um);
+    await DB.InitializeCourses(um);
+    
 }
 
 app.UseHttpsRedirection();
