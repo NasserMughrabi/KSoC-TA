@@ -12,7 +12,7 @@ using TAApplication.Data;
 namespace TAApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221023002401_added-courses")]
+    [Migration("20221023023312_added-courses")]
     partial class addedcourses
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -17,7 +17,7 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-        string role = (UserManager.GetRolesAsync(await UserManager.FindByNameAsync(User.Identity.Name))).Result[0];
+    string role = (UserManager.GetRolesAsync(await UserManager.FindByNameAsync(User.Identity.Name))).Result[0];
     <li class="nav-item">
             @foreach (var item in @data.Users.ToList())
             {

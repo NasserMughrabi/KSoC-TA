@@ -105,17 +105,17 @@
                                 <hr>PS5
                             </li>
                             <li>
-                                <a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Index">Dashboard</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Index">Applications Dashboard</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="List">List</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="List">Applications List</a>
                             </li>
                             @foreach (var item in @data.Application.Include(o => o.User).ToList())
                             {
                                 @if (item.User.Unid == "u0000000")
                                 {
                                     <li>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Details" asp-route-id="@item.ID">u0000000 Application Details</a>
                                     </li>
                                 }
                             }
@@ -129,13 +129,13 @@
                                 <hr>OLD
                             </li>
                             <li>
-                                <a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicantList">List</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicantList">Applications List</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicantCreate">Create</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicantCreate">Application Create</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicantDetails">Details</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicantDetails">Application Details</a>
                             </li>
                         </ul>
                     </li>
