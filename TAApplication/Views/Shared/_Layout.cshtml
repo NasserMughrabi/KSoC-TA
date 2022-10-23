@@ -87,6 +87,21 @@
                                <span>Abedalnaser Elmughrabi</span>
                             </li>
                             <li>
+                                <hr>PS6
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="Courses" asp-action="Index">Courses List</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@data.Course.FirstOrDefault().ID">Course Details</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="Courses" asp-action="Edit" asp-route-id="@data.Course.FirstOrDefault().ID">Update Course</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-controller="Courses" asp-action="Create">Create Course</a>
+                            </li>
+                            <li>
                                 <hr>PS5
                             </li>
                             <li>
