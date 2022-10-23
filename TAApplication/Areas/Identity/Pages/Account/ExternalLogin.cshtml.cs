@@ -161,9 +161,16 @@ namespace TAApplication.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                //TAUser taUser = new TAUser(TAUser);
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                var user = CreateUser();
+                user.Unid = Input.Unid;
+                if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Name))
+                {
+                    user.Name = info.Principal.FindFirstValue(ClaimTypes.Name);
+                }
+
+                await _userStore.SetUserNameAsync(user, Input.Unid, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
                 var result = await _userManager.CreateAsync(user);
@@ -175,6 +182,9 @@ namespace TAApplication.Areas.Identity.Pages.Account
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
 
                         var userId = await _userManager.GetUserIdAsync(user);
+                        // By default, add user to applicant
+                        await _userManager.AddToRoleAsync(user, "Applicant");
+
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                         var callbackUrl = Url.Page(
