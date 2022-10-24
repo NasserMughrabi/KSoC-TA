@@ -43,7 +43,7 @@ Nasser Mughrabi: https://34.202.28.113.nip.io/
 
 # Acknowledgements:
 
-No online source was used
+No online source was used.
 
 # References:
 
