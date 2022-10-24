@@ -35,7 +35,7 @@ No consulted peers
 
 # Peers Helped:
 
-No peers help was used
+No peers help was used.
 
 # URLS:
 AWS:
