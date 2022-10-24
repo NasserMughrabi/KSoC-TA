@@ -51,9 +51,9 @@ N/A
 
 # Time Expenditures:
 
-Assignment one: Predicted Hours: 8 Actual Hours: 6
-Assignment two: Predicted Hours: 6 Actual Hours: 7
-Assignment Three: Predicted Hours: 6 Actual Hours: 14
-Assignment Four: Predicted Hours: 9 Actual Hours: 14
-Assignment Five: Predicted Hours: 10 Actual Hours: 18
-Assignment Six: Predicted Hours: 10 Actual Hours: 10
+1. Assignment one: Predicted Hours: 8 Actual Hours: 6
+2. Assignment two: Predicted Hours: 6 Actual Hours: 7
+3. Assignment Three: Predicted Hours: 6 Actual Hours: 14
+4. Assignment Four: Predicted Hours: 9 Actual Hours: 14
+5. Assignment Five: Predicted Hours: 10 Actual Hours: 18
+6. Assignment Six: Predicted Hours: 10 Actual Hours: 10
