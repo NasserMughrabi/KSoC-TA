@@ -1,7 +1,7 @@
 ```
 Authors:     Nasser Mughrabi
 Partner:     None
-Date:       13-October-2022
+Date:       22-October-2022
 Course:     CS 4540, University of Utah, School of Computing
 GitHub ID:  NasserMughrabi
 Repo:       https://github.com/uofu-cs4540-fall2022/ps1---applicantlist-teamus
@@ -43,7 +43,7 @@ Nasser Mughrabi: https://34.202.28.113.nip.io/
 
 # Acknowledgements:
 
-No online source was used
+No online source was used.
 
 # References:
 
@@ -51,4 +51,9 @@ N/A
 
 # Time Expenditures:
 
-Assignment Four: Predicted Hours: 10 Actual Hours: 18
+Assignment one: Predicted Hours: 8 Actual Hours: 6
+Assignment two: Predicted Hours: 6 Actual Hours: 7
+Assignment Three: Predicted Hours: 6 Actual Hours: 14
+Assignment Four: Predicted Hours: 9 Actual Hours: 14
+Assignment Five: Predicted Hours: 10 Actual Hours: 18
+Assignment Six: Predicted Hours: 10 Actual Hours: 10
