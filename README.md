@@ -16,7 +16,7 @@ that can be created, viewed, delete, ect.
 
 # Comments to Evaluators:
 
-Nothing to make you aware of. Work stands for itself
+Nothing to make you aware of. Work stands for itself.
 
 # Assignment Specific Topics
 
