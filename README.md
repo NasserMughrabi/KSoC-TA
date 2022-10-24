@@ -31,7 +31,7 @@ other table which will use that data to display for users or for any other purpo
 
 # Consulted Peers:
 
-No consulted peers
+No consulted peers.
 
 # Peers Helped:
 
