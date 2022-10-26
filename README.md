@@ -39,7 +39,8 @@ No peers help was used.
 
 # URLS:
 AWS:
-Nasser Mughrabi: https://34.202.28.113.nip.io/
+* https://ec2-34-202-28-113.compute-1.amazonaws.com/
+* https://34.202.28.113.nip.io/
 
 # Acknowledgements:
 
