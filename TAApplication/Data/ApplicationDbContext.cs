@@ -148,6 +148,88 @@ namespace TAApplication.Data
             this.SaveChanges();
         }
 
+
+        /// <summary>
+        /// initialize/seed the applications table
+        /// </summary>
+        /// <returns></returns>
+        public async Task InitializeSlots(UserManager<TAUser> um)
+        {
+            // Look for any applications.
+            if (this.Slot.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var times = new string[]
+            {
+                "8:15am",
+                "8:30am",
+                "8:45am",
+                "9:0am",
+
+                "9:15am",
+                "9:30am",
+                "9:45am",
+                "10:0am",
+
+                "10:15am",
+                "10:30am",
+                "10:45am",
+                "11:0am",
+
+                "11:15am",
+                "11:30am",
+                "11:45am",
+                "12:0pm",
+
+                "12:15pm",
+                "12:30pm",
+                "12:45pm",
+                "13:0pm",
+
+                "13:15pm",
+                "13:30pm",
+                "13:45pm",
+                "14:0pm",
+
+                "14:15pm",
+                "14:30pm",
+                "14:45pm",
+                "15:0pm",
+
+                "15:15pm",
+                "15:30pm",
+                "15:45pm",
+                "16:0pm",
+
+                "16:15pm",
+                "16:30pm",
+                "16:45pm",
+                "17:0pm",
+            };
+
+            TAUser initUser = null;
+            foreach (TAUser user in um.Users)
+            {
+                if (user.Unid == "u0000000")
+                    initUser = user;
+            }
+
+            for (int i = 0; i < 16; i++)
+            {
+                this.Slot.Add(new Slot { DayAndTime = "Monday " + times[i], IsOpen = true, UserID = initUser });
+                this.Slot.Add(new Slot { DayAndTime = "Friday " + times[i], IsOpen = true, UserID = initUser });
+            }
+            for (int i = 16; i < times.Length; i++)
+            {
+                Console.WriteLine(i);
+                this.Slot.Add(new Slot { DayAndTime = "Tuesday " + times[i], IsOpen = true, UserID = initUser });
+                this.Slot.Add(new Slot { DayAndTime = "Thursday " + times[i], IsOpen = true, UserID = initUser });
+            }
+            this.SaveChanges();
+        }
+
         /// <summary>
         /// Every time Save Changes is called, add timestamps
         /// </summary>
@@ -210,5 +292,6 @@ namespace TAApplication.Data
         /// </summary>
         public DbSet<Application> Application { get; set; }
         public DbSet<Course> Course { get; set; }
+        public DbSet<Slot> Slot { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using TAApplication.Data;
 namespace TAApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221023023312_added-courses")]
-    partial class addedcourses
+    [Migration("20221120234724_added slots")]
+    partial class addedslots
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -369,6 +369,31 @@ namespace TAApplication.Migrations
                     b.ToTable("Course");
                 });
 
+            modelBuilder.Entity("TAApplication.Models.Slot", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("DayAndTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsOpen")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserIDId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserIDId");
+
+                    b.ToTable("Slot");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -429,6 +454,15 @@ namespace TAApplication.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TAApplication.Models.Slot", b =>
+                {
+                    b.HasOne("TAApplication.Areas.Data.TAUser", "UserID")
+                        .WithMany()
+                        .HasForeignKey("UserIDId");
+
+                    b.Navigation("UserID");
                 });
 #pragma warning restore 612, 618
         }

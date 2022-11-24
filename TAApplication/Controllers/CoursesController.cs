@@ -20,8 +20,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using TAApplication.Areas.Data;
 using TAApplication.Data;
 using TAApplication.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TAApplication.Controllers
 {
@@ -34,6 +37,30 @@ namespace TAApplication.Controllers
         {
             _context = context;
         }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        // GET: Scraped Courses
+        public async Task<IActionResult> UploadCourses([FromBody] List<Course> courses)
+        {
+            try
+            {
+                foreach (var c in courses)
+                {
+                    //var courseObj = from cr in _context.Course where cr.Number == c.Number select cr;
+                   _context.Course.Add(c);
+                }
+                await _context.SaveChangesAsync();
+                return Json(new { IsProcessDone = true, ProcessMessage = "success" });
+            }
+            catch (Exception error)
+            {
+                return Json(new { IsProcessDone = true, ProcessMessage = "fail" });
+            }
+
+        }
+
 
         // GET: Courses
         [Authorize(Roles = "Administrator, Professor")]
