@@ -235,7 +235,7 @@ function pointer_down() {
 
     // change the color
     if (openTimes.includes(this.id)) {
-        // the color is green
+        // the color is green now
         this.clear();
         color = rect_color;
         this.beginFill(color);
@@ -249,37 +249,6 @@ function pointer_down() {
         this.drawRect(0, 0, 100, 10);
         openTimes.push(this.id);
     }
-
-    //if (openTimes.includes(this.id)) {
-    //    this.clear();
-    //    color = rect_color;
-    //    this.beginFill(color);
-    //    this.drawRect(0, 0, 100, 10);
-    //    var index = openTimes.indexOf(this.id);
-    //    openTimes.splice(index, 1);
-    //    timesArr.push(this.id);
-    //    timesArr.push(this.id);
-    //}
-    //else {
-    //    this.clear();
-    //    color = 0x3602f;
-    //    this.beginFill(color);
-    //    this.drawRect(0, 0, 100, 10);
-    //    mouse_down = true;
-    //    mouse_dragging = true;
-    //}
-
-    //// if square slot was selected then change its color to darkred to unselect it, otherwise select it
-    //if (timesArr.includes(this.id)) {
-    //    var index = timesArr.indexOf(this.id);
-    //    timesArr.splice(index, 1);
-    //    this.clear();
-    //    color = rect_color;
-    //    this.beginFill(color);
-    //    this.drawRect(0, 0, 100, 10);
-    //} else {
-    //    timesArr.push(this.id);
-    //}
 }
 
 function pointer_up() {
