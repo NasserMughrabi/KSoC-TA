@@ -83,7 +83,10 @@ using (var scope = app.Services.CreateScope())
     await DB.InitializeUsers(um, rm, us);
     await DB.InitializeApplications(um);
     await DB.InitializeCourses(um);
+    await DB.InitializeSlots(um);
     
+
+
 }
 
 app.UseHttpsRedirection();

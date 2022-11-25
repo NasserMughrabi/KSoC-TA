@@ -16,6 +16,13 @@
     ViewData["Title"] = "Index";
 }
 
+<script>
+    function onNoteClick() {
+        //console.log($('.note-input'));
+        $('.note-input').css('display', 'block');
+    }
+</script>
+
 <h1>Courses</h1>
 
 <p>
@@ -116,7 +123,7 @@
             </td>
             @if (User.IsInRole("Administrator"))
             {
-                <td>
+                <td onclick="onNoteClick()">
                     @Html.DisplayFor(modelItem => item.Note)
                 </td>
             }
