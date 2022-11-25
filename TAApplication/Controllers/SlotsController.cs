@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Helpers;
-using System.Xml.Linq;
+﻿/**
+  Author:    Nasser Mughrabi
+  Partner:   None
+  Date:      25-November-2022
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Nasser Mughrabi - This work may not be copied for use in Academic Coursework.
+  I, Nasser Mughrabi, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source. Any references used in the completion of the assignment are cited in my README file.
+  
+File Contents:
+    This class is a controller to handle url page navigations and model interactions for the availability graphs page
+ */
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
-using TAApplication.Areas.Data;
 using TAApplication.Data;
 using TAApplication.Models;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace TAApplication.Controllers
 {
@@ -29,6 +32,11 @@ namespace TAApplication.Controllers
         // GET: Slots
         public async Task<IActionResult> Index()
         {
+            //var list = await _context.Slot.ToListAsync();
+            //foreach (var item in list)
+            //{
+            //    Console.WriteLine(item.IsOpen);
+            //}
             return View(await _context.Slot.ToListAsync());
         }
 
@@ -48,7 +56,6 @@ namespace TAApplication.Controllers
                     // if the slot exists, update its isOpen boolean
                     if (slot.Any())
                     {
-                        Console.WriteLine(slot);
                         slot.First().IsOpen = !slot.First().IsOpen;
                     }
                     else
@@ -68,7 +75,7 @@ namespace TAApplication.Controllers
                 }
             }
             await _context.SaveChangesAsync();
-            return Ok(new { success = true, message = id + " added role" });
+            return Ok(new { success = true, message = id + " added slot(s)" });
         }
 
         // Return an array of slots representing the current users availability
@@ -77,137 +84,5 @@ namespace TAApplication.Controllers
             return Ok(new { success = true, message = await _context.Slot.ToListAsync() });
         }
 
-        // GET: Slots/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Slot == null)
-            {
-                return NotFound();
-            }
-
-            var slot = await _context.Slot
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (slot == null)
-            {
-                return NotFound();
-            }
-
-            return View(slot);
-        }
-
-        // GET: Slots/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Slots/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,DayAndTime,IsOpen")] Slot slot)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(slot);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(slot);
-        }
-
-        // GET: Slots/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Slot == null)
-            {
-                return NotFound();
-            }
-
-            var slot = await _context.Slot.FindAsync(id);
-            if (slot == null)
-            {
-                return NotFound();
-            }
-            return View(slot);
-        }
-
-        // POST: Slots/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,DayAndTime,IsOpen")] Slot slot)
-        {
-            if (id != slot.ID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(slot);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SlotExists(slot.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(slot);
-        }
-
-        // GET: Slots/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Slot == null)
-            {
-                return NotFound();
-            }
-
-            var slot = await _context.Slot
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (slot == null)
-            {
-                return NotFound();
-            }
-
-            return View(slot);
-        }
-
-        // POST: Slots/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Slot == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Slot'  is null.");
-            }
-            var slot = await _context.Slot.FindAsync(id);
-            if (slot != null)
-            {
-                _context.Slot.Remove(slot);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool SlotExists(int id)
-        {
-            return _context.Slot.Any(e => e.ID == id);
-        }
     }
 }

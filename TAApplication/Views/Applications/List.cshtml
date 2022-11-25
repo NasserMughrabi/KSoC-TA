@@ -16,6 +16,7 @@
     ViewData["Title"] = "List";
 }
 
+
 <h1>Index</h1>
 
 <p>
@@ -38,6 +39,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Hours)
+            </th>
+            <th>
+                Availability
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.weekBefore)
@@ -81,6 +85,10 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Hours)
+            </td>
+            <td>
+                @*<a class="dropdown-item" asp-area="" asp-controller="Slots" asp-action="Index">Availability Page</a>*@
+                <a class="nav-link" asp-area="" asp-controller="Slots" asp-action="Index">Availability Page</a>
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.weekBefore)
