@@ -19,19 +19,18 @@
 
 
 <body>
-    <p>Basic Event Handling Across two square</p>
-    <p><b>Warning:</b> I am not using proper Software Engineering and Object Oriented Techniques </p>
-
-    <div id="canvas_div">
-        <div class="loader">
+    <main class="avai">
+        @{
+            var user = UserManager.Users.Where(u => u.Unid == User.Identity.Name.ToString()).ToArray();
+        }
+        <h3>Availability for @user.FirstOrDefault().Name</h3>
+        <div id="canvas_div">
+            <div class="loader">
+            </div>
         </div>
-    </div>
-    @{
-    var user = UserManager.Users.Where(u => u.Unid == User.Identity.Name.ToString()).ToArray();
-    }
-    <button id="save" class="btn btn-primary" onclick="save('@user.FirstOrDefault().Id')">Save</button>
-    <p class="warning">Warning: Changes NOT Saved</p>
-
+        <button id="save" class="btn btn-primary" onclick="save('@user.FirstOrDefault().Id')">Save</button>
+        <p class="warning">Warning: Changes NOT Saved</p>
+    </main>
 </body>
 
 <script type="text/javascript"
@@ -39,41 +38,3 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.2.0/browser/pixi.js"></script>
 <script src="/js/Slots/Slots.js"></script>
 
-
-
-
-@*<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DayAndTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsOpen)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DayAndTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsOpen)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@

@@ -1,79 +1,90 @@
-﻿
-let bg_color = 'black';
+﻿let bg_color = 'black';
 let rect_color = 0x96187b;
 let width = 900;
 let height = 590;
-var timesArr = [];
+var changed = [];
 var openTimes = [];
-
 var color = 0xffffff;
 var mouse_down = false;
 var mouse_dragging = false;
 
-app = new PIXI.Application({ backgroundColor: bg_color });
-app.renderer.resize(width, height);
-$("#canvas_div").append(app.view);
 
-$.get("/Slots/GetSchedule")
-.done(function (data) {
-    avaTimes = data
-    for (var item in data.message) {
-        //console.log(avaTimes.message[item].dayAndTime)
-        if (data.message[item].isOpen) {
-            openTimes.push(data.message[item].dayAndTime);
-        }
-    }
+setup();
+function setup() {
+    console.log('setup');
+
+    app = new PIXI.Application({ backgroundColor: bg_color });
+    app.renderer.resize(width, height);
+    $("#canvas_div").append(app.view);
+
+    getSlotsAndDraw();
+    addTextsOnGraphic();
+}
+
+function getSlotsAndDraw() {
+    $.get("/Slots/GetSchedule")
+        .done(function (data) {
+            // get the slots from DB
+            openTimes = [];
+            for (var item in data.message) {
+                if (data.message[item].isOpen) {
+                    openTimes.push(data.message[item].dayAndTime);
+                }
+            }
+
+            // Build a square and line for each possible slot
+            for (let j = 0; j < 5; j++) {
+                hour = 8
+                time = 0
+                daytime = "am"
+                for (let i = 0; i < 48; i++) {
+                    if (i > 14) {
+                        daytime = "pm"
+                    }
+
+                    time = time + 15
+                    if (time == 60) {
+                        time = 0
+                        hour = hour + 1
+                    }
+                    if (time > 60) {
+                        time = 0
+                        time = time + 15
+                        hour = hour + 1
+                    }
+                    timeString = hour + ":" + time + daytime;
+
+                    // use database to pass open/closed color
+                    build_square(i, j, timeString);
+                }
+            }
+            for (let i = 0; i < 48 / 4 + 1; i++) {
+                draw_lines(i)
+            }
+        });
+}
+
+function addTextsOnGraphic() {
     for (let j = 0; j < 5; j++) {
-        hour = 8
-        time = 0
-        daytime = "am"
-        for (let i = 0; i < 48; i++) {
-            if (i > 14) {
-                daytime = "pm"
-            }
-
-            time = time + 15
-            if (time == 60) {
-                time = 0
-                hour = hour + 1
-            }
-            if (time > 60) {
-                time = 0
-                time = time + 15
-                hour = hour + 1
-            }
-            timeString = hour + ":" + time + daytime;
-
-            // use database to pass open/closed color
-            build_square(i, j, timeString);
-        }
+        days_titles(j, j)
     }
+
     for (let i = 0; i < 48 / 4 + 1; i++) {
+        time = 8 + i
+        daytime = "am";
+        if (i > 3) {
+            daytime = "pm";
+        }
+        if (i > 4) {
+            j = i - 5;
+            time = 1 + j;
+        }
         draw_lines(i)
+        draw_times(i, time, daytime)
     }
-});
 
-for (let j = 0; j < 5; j++) {
-    days_titles(j, j)
+    draw_guids(1)
 }
-
-for (let i = 0; i < 48 / 4 + 1; i++) {
-    time = 8 + i
-    daytime = "am";
-    if (i > 3) {
-        daytime = "pm";
-    }
-    if (i > 4) {
-        j = i - 5;
-        time = 1 + j;
-    }
-    draw_times(i, time, daytime)
-}
-
-draw_guids(1)
-
-
-
 
 function draw_guids(id1) {
     var square1 = new PIXI.Graphics();
@@ -188,89 +199,85 @@ function build_square(time, day, timeString) {
         if (openTimes[item] == day + " " + timeString) {
             square.beginFill(0x3602f);
             square.drawRect(0, 0, 100, 10);
-        } 
+        }
     }
-
     app.stage.addChild(square);
 
-
-    //   square.on('mousedown', function (e) {
-    //     console.log('Picked up');
-
-    //     square.x = e.data.global.x;
-    //     square.y = e.data.global.y;
-    //     square.dragging = true;
-    //   });
-
-    //   square.on('mousemove', function (e) {
-    //     console.log('Dragging');
-
-    //     if (square.dragging) {
-    //       square.x = e.data.global.x;
-    //       square.y = e.data.global.y;
-    //     }
-    //  });
-
-    //  square.on('mouseup', function (e) {
-    //     console.log('Moving');
-
-    //     square.x = e.data.global.x;
-    //     square.y = e.data.global.y;
-    //     square.dragging = false;
-    //   });
-
     square.on('mousedown', pointer_down);
-    //square.on('mousemove', onDragMove);
     square.on('mouseup', pointer_up);
-    
     return square;
 }
 
-
-
 function pointer_down() {
     // if the sqaure slot is open, then change its color from green to darkred, otherwise, change it to green
+
+    // change in the database
+    if (changed.includes(this.id)) {
+        // unchange
+        var index = changed.indexOf(this.id);
+        changed.splice(index, 1);
+    } else {
+        changed.push(this.id);
+    }
+
+    // change the color
     if (openTimes.includes(this.id)) {
+        // the color is green
         this.clear();
         color = rect_color;
         this.beginFill(color);
         this.drawRect(0, 0, 100, 10);
         var index = openTimes.indexOf(this.id);
         openTimes.splice(index, 1);
-        timesArr.push(this.id);
-        timesArr.push(this.id);
-    }
-    else {
+    } else {
         this.clear();
         color = 0x3602f;
         this.beginFill(color);
         this.drawRect(0, 0, 100, 10);
-        mouse_down = true;
-        mouse_dragging = true;
+        openTimes.push(this.id);
     }
 
-    // if square slot was selected then change its color to darkred to unselect it, otherwise select it
-    if (timesArr.includes(this.id)) {
-        var index = timesArr.indexOf(this.id);
-        timesArr.splice(index,1);
-        this.clear();
-        color = rect_color;
-        this.beginFill(color);
-        this.drawRect(0, 0, 100, 10);
-    } else {
-        timesArr.push(this.id);
-    }
+    //if (openTimes.includes(this.id)) {
+    //    this.clear();
+    //    color = rect_color;
+    //    this.beginFill(color);
+    //    this.drawRect(0, 0, 100, 10);
+    //    var index = openTimes.indexOf(this.id);
+    //    openTimes.splice(index, 1);
+    //    timesArr.push(this.id);
+    //    timesArr.push(this.id);
+    //}
+    //else {
+    //    this.clear();
+    //    color = 0x3602f;
+    //    this.beginFill(color);
+    //    this.drawRect(0, 0, 100, 10);
+    //    mouse_down = true;
+    //    mouse_dragging = true;
+    //}
 
-    if (timesArr.length > 0) {
-        $(".warning").css({ display: 'block' });
-    } else {
-        $(".warning").css({ display: 'none' });
-    }
+    //// if square slot was selected then change its color to darkred to unselect it, otherwise select it
+    //if (timesArr.includes(this.id)) {
+    //    var index = timesArr.indexOf(this.id);
+    //    timesArr.splice(index, 1);
+    //    this.clear();
+    //    color = rect_color;
+    //    this.beginFill(color);
+    //    this.drawRect(0, 0, 100, 10);
+    //} else {
+    //    timesArr.push(this.id);
+    //}
 }
 
 function pointer_up() {
     mouse_down = false;
     mouse_dragging = false;
+
+    if (changed.length > 0) {
+        $(".warning").css({ display: 'block' });
+    } else {
+        $(".warning").css({ display: 'none' });
+    }
 }
 
 function pointer_over() {
@@ -283,20 +290,21 @@ function pointer_over() {
 }
 
 function save(id) {
+    console.log(changed)
     $(".loader").css({ display: 'block' });
     $.post({
         url: "/Slots/SetSchedule",
         data: {
             id: id,
-            times: timesArr
+            times: changed
         }
     })
-    .done(function (data) {
-        console.log("Sent slots\n", data);
-        $(".loader").css({ display: 'none' });
-    });
+        .done(function (data) {
+            console.log("Sent slots\n", data);
+            $(".loader").css({ display: 'none' });
+            $(".warning").css({ display: 'none' });
+        });
 }
-
 
 function onDragMove() {
     console.log('Mouse moving1');
