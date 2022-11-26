@@ -37,7 +37,9 @@ namespace TAApplication.Controllers
             //{
             //    Console.WriteLine(item.IsOpen);
             //}
-            return View(await _context.Slot.ToListAsync());
+
+            var slots = _context.Slot.Include(u => u.UserID).Where(u => u.UserID.Unid == User.Identity.Name).Select(u => u).ToListAsync();
+            return View(await slots);
         }
 
         // Given an array of slots, update the DB to reflect the current users availability
@@ -81,7 +83,8 @@ namespace TAApplication.Controllers
         // Return an array of slots representing the current users availability
         public async Task<IActionResult> GetSchedule()
         {
-            return Ok(new { success = true, message = await _context.Slot.ToListAsync() });
+            var slots = _context.Slot.Include(u => u.UserID).Where(u => u.UserID.Unid == User.Identity.Name).Select(u => u).ToListAsync();
+            return Ok(new { success = true, message = await slots });
         }
 
     }
