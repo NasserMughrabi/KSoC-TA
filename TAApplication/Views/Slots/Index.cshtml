@@ -36,6 +36,17 @@
             var user = UserManager.Users.Where(u => u.Unid == User.Identity.Name.ToString()).ToArray();
         }
         <h3>Availability for @user.FirstOrDefault().Name</h3>
+        <p>
+            Please indicate all times that you will be available during the week. 
+            This information is used by the hiring committee and professors to determine class coverage, 
+            lab coverage, office hour coverage, etc. (Note: Any work necessary on the weekends will be 
+            up to you and your professor to negotiate.)
+            <br />
+            <br />
+            If your schedule changes, please come back and update this record.
+            <br />
+            <br />
+        </p>
         <div id="canvas_div">
             <div class="loader">
             </div>
