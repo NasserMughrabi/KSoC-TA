@@ -223,11 +223,81 @@ namespace TAApplication.Data
             }
             for (int i = 16; i < times.Length; i++)
             {
-                Console.WriteLine(i);
                 this.Slot.Add(new Slot { DayAndTime = "Tuesday " + times[i], IsOpen = true, UserID = initUser });
                 this.Slot.Add(new Slot { DayAndTime = "Thursday " + times[i], IsOpen = true, UserID = initUser });
             }
             this.SaveChanges();
+        }
+
+
+        public async Task InitializeEnrollmentOverTime(UserManager<TAUser> um)
+        {
+            // Look for any applications.
+            if (this.EnrollmentOverTime.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            // read CSV File
+            ReadCSVFile();
+
+            this.SaveChanges();
+        }
+
+        private void ReadCSVFile()
+        {
+            //string filePath = @"../temp.csv";
+            string filePath = "Data\\temp.csv";
+            string[] dates;
+            int len = 0;
+            try
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    // read the first line
+                    string firstLine = reader.ReadLine();
+                    if (firstLine != null)
+                    {
+                        string[] split = firstLine.Split('\u002C');
+                        len = split.Length;
+                        dates = new string[len];
+
+                        // split Copy To dates
+                        for (int i = 1; i < split.Length; i++)
+                        {
+                            dates[i] = split[i];
+                        }
+
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                    // read the rest of the lines
+                    string line;
+                    while((line = reader.ReadLine()) != null)
+                    {
+                        string[] split = line.Split('\u002C');
+
+                        // add each course and its enrollments to the enrollmentovertime table
+                        var courseDeptNum = split[0].Split(' ');
+                        var course = courseDeptNum[0] + courseDeptNum[1];
+                        for (int i = 1; i < split.Length; i++)
+                        {
+                            var enrollment = Int32.Parse(split[i]);
+                            var date = dates[i];
+                            this.EnrollmentOverTime.Add(new EnrollmentOverTime { Enrollment = enrollment, EnrollmentDate = date, Course = course });
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
 
         /// <summary>
@@ -293,5 +363,6 @@ namespace TAApplication.Data
         public DbSet<Application> Application { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<Slot> Slot { get; set; }
+        public DbSet<EnrollmentOverTime> EnrollmentOverTime { get; set; }
     }
 }

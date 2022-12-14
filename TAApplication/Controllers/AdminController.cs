@@ -14,6 +14,7 @@ File Contents:
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;
@@ -67,7 +68,6 @@ namespace TAApplication.Controllers
 
                 if (user == null)
                 {
-                    Console.WriteLine("notfound roleid: " + role + " userid: " + id);
                     // Occurs if role is not found on user so add it
                     await _context.UserRoles.AddAsync(new IdentityUserRole<string> { UserId = id, RoleId = roleId });
                     await _context.SaveChangesAsync();
@@ -75,7 +75,6 @@ namespace TAApplication.Controllers
                 }
                 else
                 {
-                    Console.WriteLine("removing " + role);
                     // if user has role, remove it
                     _context.UserRoles.Remove(user);
                     await _context.SaveChangesAsync();
@@ -84,6 +83,18 @@ namespace TAApplication.Controllers
 
             }
 
+        }
+
+        public async Task<IActionResult> EnrollmentChart()
+        {
+            return View(await _context.EnrollmentOverTime.ToListAsync());
+        }
+
+        // Return an array of slots representing the current users availability
+        public async Task<IActionResult> GetData(string startDate, string endDate, string course)
+        {
+            var charts = _context.EnrollmentOverTime.Where(u => u.Course == course).Select(u => u).ToListAsync();
+            return Ok(new { success = true, message = await charts });
         }
 
         public IActionResult Roles()
