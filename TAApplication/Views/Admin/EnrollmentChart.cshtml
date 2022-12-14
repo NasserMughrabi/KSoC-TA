@@ -1,0 +1,64 @@
+﻿<!--
+  Author:    Nasser Mughrabi
+  Partner:   None
+  Date:      13-October-2022
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Nasser Mughrabi - This work may not be copied for use in Academic Coursework.
+  I, Nasser Mughrabi, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source. Any references used in the completion of the assignment are cited in my README file.
+  File Contents:
+    This is an html file to contruct and structure the content of the roles web page of the TA website
+-->
+
+@model IEnumerable<TAApplication.Models.EnrollmentOverTime>
+@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Data
+@inject UserManager<TAUser> um
+@inject RoleManager<IdentityRole> rm
+
+@{
+    ViewData["Title"] = "Enrollment Chart";
+
+    HashSet<string> courses = new HashSet<string>();
+    foreach (var item in Model)
+    {
+        courses.Add(item.Course);
+    }
+}
+
+
+<main class="main-charting">
+    <section class="inputs">
+        <p>Start Date: <input type="text" id="datepicker"></p>
+        <p>End Date: <input type="text" id="datepicker1"></p>
+        <label >Choose a Course:</label>
+        <select id="courseChoice" class="courses-list">
+            @foreach (var item in courses)
+            {
+                <option>@item</option>
+            }
+        </select>
+        <button class="button" onclick="getData(document.getElementById('datepicker').value,
+        document.getElementById('datepicker1').value, document.getElementById('courseChoice').value)">
+            Get Data
+        </button>
+    </section>
+
+    <section class="chart">
+        <figure class="highcharts-figure">
+            <div id="EnrollmentChart"></div>
+        </figure>
+    </section>
+</main>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/10.3.2/highcharts.js" 
+    integrity="sha512-JVzXlL1mZb/G0YNUJtPqUzA/QtPMQLNpCtEBOV9R8P3Uskp4W0C+6SVZ3rpwnKcp/V/59YQoGNUYmB/N6do1sA==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer"></script>
+    <script src="~/js/Admin/EnrollmentChart.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+}
+
+
