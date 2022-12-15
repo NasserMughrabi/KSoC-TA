@@ -43,10 +43,9 @@
 }
 
 .loader {
-    display: block;
-    color: red;
-    top: 50%;
-    left: 30%;
+    display: none;
+    top: 11%;
+    left: 44%;
     position: absolute;
     border: 16px solid #f3f3f3;
     border-radius: 50%;

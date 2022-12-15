@@ -23,9 +23,8 @@ function getData(startDate, endDate, course) {
                 name: course,
                 data: enrols
             });
-            //$(".loader").css({ display: 'none' });
+            $(".loader").css({ display: 'none' });
     });
-      
 }
 
 Highcharts.chart('EnrollmentChart', {
