@@ -11,6 +11,8 @@ File Contents:
     This class is AJAX to connect view to controller
  */
 
+var series = ["CS1400", "CS1410", "CS2420"];
+
 function getData(startDate, endDate, course) {
     var enrols = [];
     $(".loader").css({ display: 'block' });
@@ -19,10 +21,13 @@ function getData(startDate, endDate, course) {
             for (var item in data.message) {
                 enrols.push(data.message[item].enrollment)
             }
-            $("#EnrollmentChart").highcharts().addSeries({
-                name: course,
-                data: enrols
-            });
+            if (!series.includes(course)) {
+                $("#EnrollmentChart").highcharts().addSeries({
+                    name: course,
+                    data: enrols
+                });
+                series.push(course);
+            }
             $(".loader").css({ display: 'none' });
     });
 }
