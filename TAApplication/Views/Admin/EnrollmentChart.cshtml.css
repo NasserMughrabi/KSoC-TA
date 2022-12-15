@@ -1,5 +1,11 @@
 ﻿.main-charting {
     padding: 1rem;
+    background-color: black;
+    color: white;
+}
+
+.piechart {
+    background-color: black;
 }
 
 .button {
@@ -22,3 +28,5 @@
     position: relative;
     top: 1px;
 }
+
+
