@@ -6,7 +6,7 @@
             Email: Email
         }
     })
-        .done(function (data) {
-            console.log("Sent change role\n", data);
-        });
+    .done(function (data) {
+        console.log("Sent change role\n", data);
+    });
 }
