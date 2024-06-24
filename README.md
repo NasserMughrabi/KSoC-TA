@@ -1,5 +1,5 @@
 ```
-Authors:     Nasser Mughrabi
+Authors:    Nasser Mughrabi
 Project:    TA Application Website
 ```
 # Overview of the TA Application Functionality 
